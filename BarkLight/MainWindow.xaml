@@ -6,31 +6,61 @@
         xmlns:local="clr-namespace:BarkLight"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="4*" />
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Button HorizontalAlignment="Stretch" Height="100px" Content="Start" Grid.Row="0" Click="Start_Button_Click"></Button>
-            <Grid Grid.Row="1" Height="100">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Button HorizontalAlignment="Stretch" Height="50px" Content="Up" Grid.Row="0" Click="Up_Button_Click"></Button>
-                <Button HorizontalAlignment="Stretch" Height="50px" Content="Down" Grid.Row="1" Click="Down_Button_Click"></Button>
-            </Grid>
-            <Button HorizontalAlignment="Stretch" Height="100px" Content="End" Grid.Row="2" Click="End_Button_Click"></Button>
-            <Button HorizontalAlignment="Stretch" Height="100px" Content="Update" Grid.Row="3" Click="Update_Button_Click"></Button>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30px" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <DockPanel Grid.Row="0">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Control">
+                    <MenuItem Header="Start" Click="Start_Button_Click"/>
+                    <MenuItem Header="End" Click="End_Button_Click"/>
+                </MenuItem>
+                <MenuItem Header="Kinect Angle">
+                    <MenuItem Header="Up" Click="Up_Button_Click"/>
+                    <MenuItem Header="Horizontal" Click="Hori_Button_Click"/>
+                    <MenuItem Header="Down" Click="Down_Button_Click"/>
+                </MenuItem>
+                <MenuItem Header="Update" Click="Update_Button_Click"></MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" x:Name="jointIamge" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Image>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Stretch" Width="80">head:</TextBlock>
+                    <TextBlock Width="50">X:</TextBlock>
+                    <TextBlock Width="100" x:Name="head_x">0</TextBlock>
+                    <TextBlock Width="50">Y:</TextBlock>
+                    <TextBlock Width="100" x:Name="head_y">0</TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock HorizontalAlignment="Stretch" Width="80">Left Hand:</TextBlock>
+                    <TextBlock Width="50">X:</TextBlock>
+                    <TextBlock Width="100" x:Name="handleft_x">0</TextBlock>
+                    <TextBlock Width="50">Y:</TextBlock>
+                    <TextBlock Width="100" x:Name="handleft_y">0</TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <TextBlock HorizontalAlignment="Stretch" Width="80">Right Hand:</TextBlock>
+                    <TextBlock Width="50">X:</TextBlock>
+                    <TextBlock Width="100" x:Name="handright_x">0</TextBlock>
+                    <TextBlock Width="50">Y:</TextBlock>
+                    <TextBlock Width="100" x:Name="handright_y">0</TextBlock>
+                </StackPanel>
+            </Grid>
         </Grid>
-        <Image Grid.Column="1" x:Name="depthIamge" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Image>
     </Grid>
 </Window>

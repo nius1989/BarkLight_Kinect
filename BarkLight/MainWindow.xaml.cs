@@ -23,6 +23,11 @@ namespace BarkLight
     public partial class MainWindow : Window
     {
         Kinect kinect=new Kinect();
+        /// <summary>
+        /// Drawing image that we will display
+        /// </summary>
+        private DrawingImage imageSource;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -31,8 +36,7 @@ namespace BarkLight
 
         private void Init()
         {
-            kinect.InitializeKinect();
-            this.Closed += MainWindow_Closed;
+            this.Unloaded += MainWindow_Closed;
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
@@ -42,19 +46,26 @@ namespace BarkLight
 
         private void Start_Button_Click(object sender, RoutedEventArgs e)
         {
+            kinect.SkeletonInitialized += Kinect_SkeletonFrameReady;
             kinect.Run();
-            kinect.DepthCameraReady += Kinect_DepthCameraReady;
+            kinect.SkeletonReady += Kinect_SkeletonReady;
         }
 
         private void Up_Button_Click(object sender, RoutedEventArgs e)
         {
-            kinect.UpdateAngle(20);
+            kinect.UpdateAngle(10);
+        }
+
+        private void Hori_Button_Click(object sender, RoutedEventArgs e)
+        {
+            kinect.UpdateAngle(0);
         }
 
         private void Down_Button_Click(object sender, RoutedEventArgs e)
         {
-            kinect.UpdateAngle(0);
+            kinect.UpdateAngle(-10);
         }
+
 
         private void End_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -66,25 +77,21 @@ namespace BarkLight
             //connect to Arduino.
         }
 
-        private void Kinect_DepthCameraReady(object sender, Kinect.DepthCameraReadyEventArgs e)
+        private void Kinect_SkeletonFrameReady(object sender, Kinect.SkeletonInitializedEventArgs e)
         {
-            depthIamge.Source = BitmapToImageSource(kinect.GetDepthImage());
+            imageSource = new DrawingImage(kinect.DrawingGroup);
+            jointIamge.Source = imageSource;
         }
 
-        BitmapImage BitmapToImageSource(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new BitmapImage();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
 
-                return bitmapimage;
-            }
+        private void Kinect_SkeletonReady(object sender, Kinect.SkeletonEventArgs e)
+        {
+            head_x.Text = "" + e.HeadHandPoint.X;
+            head_y.Text = "" + e.HeadHandPoint.Y;
+            handleft_x.Text = "" + e.LeftHandPoint.X;
+            handleft_y.Text = "" + e.LeftHandPoint.Y;
+            handright_x.Text = "" + e.RightHandPoint.X;
+            handright_y.Text = "" + e.RightHandPoint.Y;
         }
     }
 }
