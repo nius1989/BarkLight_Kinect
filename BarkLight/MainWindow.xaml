@@ -1,0 +1,36 @@
+﻿<Window x:Class="BarkLight.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BarkLight"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button HorizontalAlignment="Stretch" Height="100px" Content="Start" Grid.Row="0" Click="Start_Button_Click"></Button>
+            <Grid Grid.Row="1" Height="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Button HorizontalAlignment="Stretch" Height="50px" Content="Up" Grid.Row="0" Click="Up_Button_Click"></Button>
+                <Button HorizontalAlignment="Stretch" Height="50px" Content="Down" Grid.Row="1" Click="Down_Button_Click"></Button>
+            </Grid>
+            <Button HorizontalAlignment="Stretch" Height="100px" Content="End" Grid.Row="2" Click="End_Button_Click"></Button>
+            <Button HorizontalAlignment="Stretch" Height="100px" Content="Update" Grid.Row="3" Click="Update_Button_Click"></Button>
+
+        </Grid>
+        <Image Grid.Column="1" x:Name="depthIamge" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Image>
+    </Grid>
+</Window>
