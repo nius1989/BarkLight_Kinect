@@ -23,6 +23,7 @@ namespace BarkLight
     public partial class MainWindow : Window
     {
         Kinect kinect=new Kinect();
+        Arduino arduino = new Arduino();
         /// <summary>
         /// Drawing image that we will display
         /// </summary>
@@ -92,6 +93,13 @@ namespace BarkLight
             handleft_y.Text = "" + e.LeftHandPoint.Y;
             handright_x.Text = "" + e.RightHandPoint.X;
             handright_y.Text = "" + e.RightHandPoint.Y;
+            UpdateArduino(e.LeftHandPoint.Y, e.RightHandPoint.Y);
+        }
+
+        private void UpdateArduino(double y1, double y2)
+        {
+            //arduino.SendToPort("1");
+            Console.WriteLine("send to arduino");
         }
     }
 }
